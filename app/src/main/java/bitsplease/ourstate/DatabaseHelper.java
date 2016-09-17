@@ -151,7 +151,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return petitions;
     }
 
-    public void undoVote(int voteId) {
-
+    public boolean undoVote(int voteId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select ID from " + PETITION_TABLE +
+                "where ID = " + petitionId, null);
+        if (res.getCount() == 0) {
+            res.close();
+            return false;
+        } else {
+            res.moveToNext();
+            int votes = res.getInt(0) + 1;
+            String stringVotes = "" + votes;
+            //Updates the vote
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("VOTES", votes);
+            res.close();
+            db.update(PETITION_TABLE, contentValues, "ID = " + petitionId, new String[]{stringVotes});
+            //Adds a new vote to the vote table
+            contentValues = new ContentValues();
+            contentValues.put("ID", petitionId);
+            contentValues.put("VOTER", voter);
+            db.insert(VOTES_TABLE, null, contentValues);
+            return true;
+        }
     }
 }
