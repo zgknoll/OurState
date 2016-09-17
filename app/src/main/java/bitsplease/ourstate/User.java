@@ -12,6 +12,6 @@ public class User {
     {
         this.userId=userId;
         this.username=username;
-        this.password=username;
+        this.password=password;
     }
 }
