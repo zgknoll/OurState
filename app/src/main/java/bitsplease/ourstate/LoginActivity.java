@@ -3,10 +3,11 @@ package bitsplease.ourstate;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 
 import android.content.CursorLoader;
@@ -40,13 +41,14 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
     private DatabaseHelper db;
+    private User myUser;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -197,14 +199,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        if(email==null)
-        {
-            return false;
-        }
-        else
-        {
-            return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-        }
+        return email!=null&&Patterns.EMAIL_ADDRESS.matcher(email).matches();
+
     }
 
     private boolean isPasswordValid(String password) {
@@ -214,16 +210,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String PASSWORD_PATTERN="^(?=.*[0,9])(?=.*[a,z])(?=.*[A,Z])(?=\\S+$).{8,16}$";
         pattern=Pattern.compile(PASSWORD_PATTERN);
         matcher=pattern.matcher(password);
-        if(password==null)
-        {
-            return false;
-        }
-        else
-        {
-            return matcher.matches();
-        }
-    }
+        return matcher.matches();
 
+    }
     /**
      * Shows the progress UI and hides the login form.
      */
@@ -332,7 +321,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -349,8 +337,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             // TODO: register the new account here.
-
-            return true;
+            return false;
         }
 
         @Override
@@ -360,6 +347,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
+                Intent myIntent=new Intent(LoginActivity.this,MainActivity.class);
+                LoginActivity.this.startActivity(myIntent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
