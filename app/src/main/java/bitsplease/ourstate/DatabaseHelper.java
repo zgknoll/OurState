@@ -153,26 +153,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean undoVote(int voteId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ID from " + PETITION_TABLE +
-                "where ID = " + petitionId, null);
+        Cursor res = db.rawQuery("select * from " + VOTES_TABLE +
+                "where VOTER_ID = " + voteId, null);
         if (res.getCount() == 0) {
             res.close();
             return false;
         } else {
             res.moveToNext();
-            int votes = res.getInt(0) + 1;
+            int votes = res.getInt(0) - 1;
             String stringVotes = "" + votes;
             //Updates the vote
             ContentValues contentValues = new ContentValues();
             contentValues.put("VOTES", votes);
             res.close();
-            db.update(PETITION_TABLE, contentValues, "ID = " + petitionId, new String[]{stringVotes});
+            db.update(VOTES_TABLE, contentValues, "VOTE_ID = " + voteId, new String[]{stringVotes});
             //Adds a new vote to the vote table
             contentValues = new ContentValues();
-            contentValues.put("ID", petitionId);
-            contentValues.put("VOTER", voter);
-            db.insert(VOTES_TABLE, null, contentValues);
+            contentValues.put("ID", voteId);
+            //contentValues.put("VOTER", voter);
+
+            //deleteTitle();
+
+
+            //db.remove(VOTES_TABLE, null, contentValues);
             return true;
         }
+    }
+
+    public boolean deleteTitle(String name)
+    {
+        return false;
+        //return db.delete(VOTES_TABLE, KEY_NAME + "=" + name, null) > 0;
     }
 }
