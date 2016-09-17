@@ -327,32 +327,22 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             db=null;
             try {
                 // Simulate network access.
-                db = new DatabaseHelper(mContext, 1);
-                if (db.validLogin(mEmail, mPassword)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }finally {
-
+                db=new DatabaseHelper(mContext,1);
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
             }
 
-               // Thread.sleep(2000);
-//            }catch (InterruptedException e)
-//             {
-//                return false;
-//            }
-//
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mEmail)) {
-//                    // Account exists, return true if the password matches.
-//                    return pieces[1].equals(mPassword);
-//                }
-//            }
+            for (String credential : DUMMY_CREDENTIALS) {
+                String[] pieces = credential.split(":");
+                if (pieces[0].equals(mEmail)) {
+                    // Account exists, return true if the password matches.
+                    return pieces[1].equals(mPassword);
+                }
+            }
 
             // TODO: register the new account here.
-          //  return false;
+            return false;
         }
 
         @Override
