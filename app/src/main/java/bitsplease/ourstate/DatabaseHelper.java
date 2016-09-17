@@ -79,21 +79,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean petitionVote(int petitionId) {
+
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ID from "+PETITION_TABLE+
-                "where ID = "+petitionId,null);
-        if(res.getCount() == 0) {
+        Cursor res = db.rawQuery("select ID from " + PETITION_TABLE +
+                "where ID = " + petitionId, null);
+        if (res.getCount() == 0) {
             res.close();
             return false;
         } else {
             res.moveToNext();
-            int votes = res.getInt(0)+1;
+            int votes = res.getInt(0) + 1;
+            String stringVotes = "" + votes;
             ContentValues contentValues = new ContentValues();
             contentValues.put("VOTES", votes);
             res.close();
-            return db.insert(PETITION_TABLE, null, contentValues) != -1;
+            db.update(PETITION_TABLE, contentValues, "ID = " + petitionId, new String[]{stringVotes});
+            return true;
         }
     }
 
+    public Petition[] getAllPetitions() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+PETITION_TABLE, null);
+        Petition petitionArray[] = new Petition[res.getCount()];
+        int i=0;
+        while(res.moveToNext()) {
+            Petition petition = new Petition(res.getInt(0), res.getString(1), res.getString(2), res.getInt(3), res.getString(4), res.getInt(5));
+            petitionArray[i] = petition;
+            i++;
+        }
+        return petitionArray;
+    }
 
+    public Petition getPetitionById(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+PETITION_TABLE+" where ID = "+id, null);
+        res.moveToNext();
+        Petition petition = new Petition(res.getInt(0), res.getString(1), res.getString(2), res.getInt(3), res.getString(4), res.getInt(5));
+        return petition;
+    }
+
+    
 }
