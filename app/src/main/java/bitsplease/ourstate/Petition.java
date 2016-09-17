@@ -23,9 +23,9 @@ public class Petition {
         this.creationTime = creationTime;
     }
 
-    public void incrementVote(int votes){
+    public void incrementVote(int votes, String voter){
         votes++;
-        db.petitionVote(id);
+        db.petitionVote(id, voter);
     }
 
     public int getId() {

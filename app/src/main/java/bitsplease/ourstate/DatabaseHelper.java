@@ -78,7 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(PETITION_TABLE, null, contentValues) != -1;
     }
 
-    public boolean petitionVote(int petitionId) {
+    public boolean petitionVote(int petitionId, String voter) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select ID from " + PETITION_TABLE +
@@ -90,10 +90,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             res.moveToNext();
             int votes = res.getInt(0) + 1;
             String stringVotes = "" + votes;
+            //Updates the vote
             ContentValues contentValues = new ContentValues();
             contentValues.put("VOTES", votes);
             res.close();
             db.update(PETITION_TABLE, contentValues, "ID = " + petitionId, new String[]{stringVotes});
+            //Adds a new vote to the vote table
+            contentValues = new ContentValues();
+            contentValues.put("ID", petitionId);
+            contentValues.put("VOTER", voter);
+            db.insert(VOTES_TABLE, null, contentValues);
             return true;
         }
     }
@@ -119,5 +125,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return petition;
     }
 
-
+    public Vote[] findPetitionSupporters(int petitionId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+VOTES_TABLE+" where ID = "+petitionId,null);
+        Vote votes[] = new Vote[res.getCount()];
+        int i = 0;
+        while(res.moveToNext()) {
+            Vote vote = new Vote(res.getInt(0), res.getString(1), res.getInt(2));
+            votes[i] = vote;
+            i++;
+        }
+        return votes;
+    }
 }
