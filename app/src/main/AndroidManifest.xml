@@ -27,7 +27,7 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PetitionListActivity"></activity>
+        <activity android:name=".PetitionListActivity" />
     </application>
 
 </manifest>
