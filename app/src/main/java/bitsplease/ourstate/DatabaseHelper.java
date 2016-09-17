@@ -48,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean validLogin(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+LOGIN_TABLE+" where PASSWORD = "+password+" and USERNAME = "+username,null);
+        Cursor res = db.rawQuery("select * from "+LOGIN_TABLE+" where PASSWORD = "+password+" and USERNAME = "+username+";",null);
         if(res.getCount() > 0){
             res.close();
             return true;
@@ -80,8 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean petitionVote(int petitionId, String voter) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ID from " + PETITION_TABLE +
-                "where ID = " + petitionId, null);
+        Cursor res = db.rawQuery("select ID from " + PETITION_TABLE +"where ID = " + petitionId+";", null);
         if (res.getCount() == 0) {
             res.close();
             return false;
@@ -105,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Petition[] getAllPetitions() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+PETITION_TABLE, null);
+        Cursor res = db.rawQuery("select * from "+PETITION_TABLE+";", null);
         Petition petitionArray[] = new Petition[res.getCount()];
         int i=0;
         while(res.moveToNext()) {
@@ -118,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Petition getPetitionById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+PETITION_TABLE+" where ID = "+id, null);
+        Cursor res = db.rawQuery("select * from "+PETITION_TABLE+" where ID = "+id+";", null);
         res.moveToNext();
         Petition petition = new Petition(res.getInt(0), res.getString(1), res.getString(2), res.getInt(3), res.getString(4), res.getInt(5));
         return petition;
@@ -126,7 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Vote[] findPetitionSupporters(int petitionId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+VOTES_TABLE+" where ID = "+petitionId,null);
+        Cursor res = db.rawQuery("select * from "+VOTES_TABLE+" where ID = "+petitionId+";",null);
         Vote votes[] = new Vote[res.getCount()];
         int i = 0;
         while(res.moveToNext()) {
@@ -139,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Petition[] findPetitionsByUsername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+PETITION_TABLE+" where CREATOR = "+username, null);
+        Cursor res = db.rawQuery("select * from "+PETITION_TABLE+" where CREATOR = "+username+";", null);
         Petition petitions[] = new Petition[res.getCount()];
         int i = 0;
         while(res.moveToNext()) {
@@ -152,8 +151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean undoVote(int voteId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from " + VOTES_TABLE +
-                "where VOTER_ID = " + voteId, null);
+        Cursor res = db.rawQuery("select * from "+VOTES_TABLE+"where VOTER_ID = " + voteId+";", null);
         if (res.getCount() == 0) {
             res.close();
             return false;
