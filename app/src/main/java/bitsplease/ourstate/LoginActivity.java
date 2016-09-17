@@ -55,7 +55,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+            "foo@example.com:Hello123", "bar@example.com:world"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -200,17 +200,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email!=null&&Patterns.EMAIL_ADDRESS.matcher(email).matches();
-
+//        return true;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         Pattern pattern;
         Matcher matcher;
-        String PASSWORD_PATTERN="^(?=.*[0,9])(?=.*[a,z])(?=.*[A,Z])(?=\\S+$).{8,16}$";
+        String PASSWORD_PATTERN= "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16})";
         pattern=Pattern.compile(PASSWORD_PATTERN);
         matcher=pattern.matcher(password);
         return matcher.matches();
+
 
     }
     /**
