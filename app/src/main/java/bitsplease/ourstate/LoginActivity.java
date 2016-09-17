@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    private DatabaseHelper db;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -64,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db=new DatabaseHelper(this,1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -192,12 +197,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        if(email==null)
+        {
+            return false;
+        }
+        else
+        {
+            return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        Pattern pattern;
+        Matcher matcher;
+        String PASSWORD_PATTERN="^(?=.*[0,9])(?=.*[a,z])(?=.*[A,Z])(?=\\S+$).{8,16}$";
+        pattern=Pattern.compile(PASSWORD_PATTERN);
+        matcher=pattern.matcher(password);
+        if(password==null)
+        {
+            return false;
+        }
+        else
+        {
+            return matcher.matches();
+        }
     }
 
     /**
@@ -308,6 +332,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -324,6 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             // TODO: register the new account here.
+
             return true;
         }
 
