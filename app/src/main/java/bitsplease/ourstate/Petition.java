@@ -23,6 +23,11 @@ public class Petition {
         this.creationTime = creationTime;
     }
 
+    public void incrementVote(int votes){
+        votes++;
+        db.petitionVote(id);
+    }
+
     public int getId() {
         return id;
     }
@@ -53,11 +58,6 @@ public class Petition {
 
     public void setVotes(int votes) {
         this.votes = votes;
-    }
-
-    public void incrementVote(int votes){
-        votes++;
-        db.petitionVote(id);
     }
 
     public String getCreator() {
