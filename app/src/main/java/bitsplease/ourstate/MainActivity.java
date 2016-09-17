@@ -23,14 +23,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         Button button2 = (Button) findViewById(R.id.petitionsButton);
-        button1.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentProfile = new Intent(MainActivity.this, PetitionListActivity.class);
+                startActivity(intentProfile);
+            }
+        });
+
+        Button button3 = (Button) findViewById(R.id.startPetitionButton);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentProfile = new Intent(MainActivity.this, StartPetition.class);
                 startActivity(intentProfile);
             }
         });
