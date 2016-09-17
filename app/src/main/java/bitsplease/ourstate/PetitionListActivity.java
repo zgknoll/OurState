@@ -21,6 +21,10 @@ public class PetitionListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_petition_list);
+        TextView textElement;
+        textElement = (TextView) findViewById(R.id.leftSide);
+        leftSideInitialize();
+        textElement.setText(output);
         db = new DatabaseHelper(this, 1);
         leftSideInitialize();
 
