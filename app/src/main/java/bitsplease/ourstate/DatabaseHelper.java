@@ -138,5 +138,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return votes;
     }
 
+    public Petition[] findPetitionsByUsername(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+PETITION_TABLE+" where CREATOR = "+username, null);
+        Petition petitions[] = new Petition[res.getCount()];
+        int i = 0;
+        while(res.moveToNext()) {
+            Petition petition = new Petition(res.getInt(0), res.getString(1), res.getString(2), res.getInt(3), res.getString(4), res.getInt(5));
+            petitions[i] = petition;
+            i++;
+        }
+        return petitions;
+    }
 
+    public void undoVote(int voteId) {
+
+    }
 }
