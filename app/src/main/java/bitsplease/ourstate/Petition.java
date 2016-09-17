@@ -56,9 +56,7 @@ public class Petition {
         return votes;
     }
 
-    public void setVotes(int votes) {
-        this.votes = votes;
-    }
+    public void setVotes(int votes) { this.votes = votes; }
 
     public String getCreator() {
         return creator;

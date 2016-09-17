@@ -28,6 +28,7 @@
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PetitionListActivity" />
+        <activity android:name=".StartPetition"></activity>
     </application>
 
 </manifest>

@@ -15,20 +15,28 @@
         android:layout_height="wrap_content"
         android:text="Profile"
         android:id="@+id/profileButton"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="123dp"
         android:clickable="true"
-        android:textSize="50dp" />
+        android:textSize="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Petitions"
         android:id="@+id/petitionsButton"
-        android:layout_below="@+id/profileButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="83dp"
         android:clickable="true"
-        android:textSize="50dp" />
+        android:textSize="50dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Petition"
+        android:id="@+id/startPetitionButton"
+        android:textSize="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
