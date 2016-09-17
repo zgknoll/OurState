@@ -36,8 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean usernameExists(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select USERNAME from "+LOGIN_TABLE+
-                " where USERNAME = "+username,null);
+        Cursor res = db.rawQuery("select * from "+LOGIN_TABLE+" where USERNAME = "+username,null);
         if(res.getCount() > 0){
             res.close();
             return true;
@@ -49,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean validLogin(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select PASSWORD from "+LOGIN_TABLE+" where PASSWORD = "+password+" and where USERNAME = "+username,null);
+        Cursor res = db.rawQuery("select * from "+LOGIN_TABLE+" where PASSWORD = "+password+" and USERNAME = "+username,null);
         if(res.getCount() > 0){
             res.close();
             return true;
