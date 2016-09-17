@@ -117,6 +117,27 @@ public class PetitionListActivity extends AppCompatActivity {
                 startActivity(intentProfile);
             }
         });
+
+        Button buttonBack = (Button) findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                leftSideDecrement();
+//                Intent intentProfile = new Intent(PetitionListActivity.this, PetitionDescActivity.class);
+//                startActivity(intentProfile);
+            }
+        });
+
+        Button buttonNext = (Button) findViewById(R.id.buttonNext);
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                leftSideIncrement();
+//                Intent intentProfile = new Intent(PetitionListActivity.this, PetitionDescActivity.class);
+//                startActivity(intentProfile);
+            }
+        });
+
     };
 
     private void leftSideInitialize(){
