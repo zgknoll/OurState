@@ -169,7 +169,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError("Password must have 8-16 characters\nContain:\nAt least one capital letter A-Z\nAt least one lowercase letter a-z\nAt least one number 0-9");
+            mPasswordView.setError("Password must contain:\n8-16 characters\nAt least one capital letter A-Z\nAt least one lowercase letter a-z\nAt least one number 0-9");
             focusView = mPasswordView;
             cancel = true;
         }
