@@ -51,7 +51,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private static final int REQUEST_READ_CONTACTS = 0;
     private DatabaseHelper db;
     private User myUser;
-
+    public static String username;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
