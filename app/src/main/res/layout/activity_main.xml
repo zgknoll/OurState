@@ -23,7 +23,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Petitions"
+        android:text="@string/action_go_petitions"
         android:id="@+id/petitionsButton"
         android:clickable="true"
         android:textSize="50dp"

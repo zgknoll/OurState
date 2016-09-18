@@ -123,8 +123,8 @@ public class PetitionListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 leftSideDecrement();
-//                Intent intentProfile = new Intent(PetitionListActivity.this, PetitionDescActivity.class);
-//                startActivity(intentProfile);
+                Intent intentProfile = new Intent(PetitionListActivity.this, PetitionDescActivity.class);
+                startActivity(intentProfile);
             }
         });
 
@@ -133,12 +133,12 @@ public class PetitionListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 leftSideIncrement();
-//                Intent intentProfile = new Intent(PetitionListActivity.this, PetitionDescActivity.class);
-//                startActivity(intentProfile);
+                Intent intentProfile = new Intent(PetitionListActivity.this, PetitionDescActivity.class);
+                startActivity(intentProfile);
             }
         });
 
-    };
+    }
 
     private void leftSideInitialize(){
         output = "";

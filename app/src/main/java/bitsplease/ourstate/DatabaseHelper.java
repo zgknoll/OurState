@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+LOGIN_TABLE+" (ID INTEGER PRIMARY KEY, USERNAME TEXT, PASSWORD INTEGER)");
-        db.execSQL("create table "+PETITION_TABLE+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, PETITION_TITLE TEXT, PETITION_DESC TEXT, VOTES INTEGER, CREATOR TEXT, CREATION_TIME INTEGER)");
+        db.execSQL("create table "+PETITION_TABLE+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, PETITION_TITLE TEXT, PETITION_DESC TEXT, VOTES INTEGER, CREATOR TEXT, CREATION_TIME LONG)");
         db.execSQL("create table "+VOTES_TABLE+" (VOTER_ID INTEGER PRIMARY KEY AUTOINCREMENT, VOTER TEXT, ID INTEGER)");
     }
 
@@ -66,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(LOGIN_TABLE, null, contentValues) != -1;
     }
 
-    public boolean insertPetition(String petitionTitle, String petitionDesc, int votes, String creator, int creationTime) {
+    public boolean insertPetition(String petitionTitle, String petitionDesc, int votes, String creator, long creationTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("PETITION_TITLE", petitionTitle);
@@ -80,19 +80,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean petitionVote(int petitionId, String voter) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ID from " + PETITION_TABLE +"where ID = "+ petitionId+";", null);
-        if (res.getCount() == 0) {
+        Cursor res = db.rawQuery("select VOTES from " + PETITION_TABLE +" where ID = "+ petitionId+";", null);
+        if (res.getCount() == -1) {
             res.close();
             return false;
         } else {
             res.moveToNext();
             int votes = res.getInt(0) + 1;
-            String stringVotes = "" + votes;
+            String stringId = "" + petitionId;
             //Updates the vote
             ContentValues contentValues = new ContentValues();
             contentValues.put("VOTES", votes);
             res.close();
-            db.update(PETITION_TABLE, contentValues, "ID = " + petitionId, new String[]{stringVotes});
+            db.update(PETITION_TABLE, contentValues, "ID = ?", new String[]{stringId});
             //Adds a new vote to the vote table
             contentValues = new ContentValues();
             contentValues.put("ID", petitionId);
