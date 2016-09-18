@@ -105,9 +105,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         register.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.insertLogin(login, password);
-                Intent myIntent = new Intent(LoginActivity.this,MainActivity.class);
-                LoginActivity.this.startActivity(myIntent);
+                if(isEmailValid(login) == true && isPasswordValid(password) == true){
+                    db.insertLogin(login, password);
+                    Intent myIntent = new Intent(LoginActivity.this,MainActivity.class);
+                    LoginActivity.this.startActivity(myIntent);
+                }
             }
         });
 
