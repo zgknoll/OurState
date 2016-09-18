@@ -346,6 +346,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
 
             // TODO: register the new account here.
+
+
+
+
+
             return false;
         }
 
