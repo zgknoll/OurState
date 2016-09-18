@@ -13,29 +13,35 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
+        android:text="My Profile"
         android:id="@+id/profileButton"
         android:clickable="true"
-        android:textSize="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:textSize="60dp"
+        android:layout_below="@+id/petitionsButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/petitionsButton"
+        android:layout_alignEnd="@+id/petitionsButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/action_go_petitions"
+        android:text="Petitions List"
         android:id="@+id/petitionsButton"
         android:clickable="true"
-        android:textSize="50dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:textSize="60dp"
+        android:layout_below="@+id/startPetitionButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/startPetitionButton"
+        android:layout_alignEnd="@+id/startPetitionButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Petition"
         android:id="@+id/startPetitionButton"
-        android:textSize="50dp"
+        android:textSize="60dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

@@ -198,6 +198,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask = new UserLoginTask(email, password,this);
             mAuthTask.execute((Void) null);
         }
+
+        String[] usernameArr = email.split("@");
+        username = usernameArr[0];
     }
 
     private boolean isEmailValid(String email) {
