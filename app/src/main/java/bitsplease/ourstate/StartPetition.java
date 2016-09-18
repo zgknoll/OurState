@@ -38,6 +38,8 @@ public class StartPetition extends AppCompatActivity {
                 Petition p = new Petition(1, petitionTitle, petitionDesc, 0, creator, creationTime);
                 db.insertPetition(petitionTitle, petitionDesc, 0, creator, creationTime);
                 p.incrementVote(creator, db);
+                Intent intentProfile = new Intent(StartPetition.this, MainActivity.class);
+                startActivity(intentProfile);
             }
         });
 
