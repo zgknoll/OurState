@@ -34,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
     public boolean usernameExists(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+LOGIN_TABLE+" where USERNAME = '"+username+"';",null);
