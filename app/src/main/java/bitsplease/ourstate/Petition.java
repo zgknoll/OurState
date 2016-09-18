@@ -11,10 +11,9 @@ public class Petition {
     private String petitionDesc;
     private int votes;
     private String creator;
-    private int creationTime;
-    private DatabaseHelper db;
+    private long creationTime;
 
-    public Petition(int id, String petitionTitle, String petitionDesc, int votes, String creator, int creationTime) {
+    public Petition(int id, String petitionTitle, String petitionDesc, int votes, String creator, long creationTime) {
         this.id = id;
         this.petitionTitle = petitionTitle;
         this.petitionDesc = petitionDesc;
@@ -23,7 +22,7 @@ public class Petition {
         this.creationTime = creationTime;
     }
 
-    public void incrementVote(int votes, String voter){
+    public void incrementVote(String voter, DatabaseHelper db){
         votes++;
         db.petitionVote(id, voter);
     }
@@ -66,11 +65,11 @@ public class Petition {
         this.creator = creator;
     }
 
-    public int getCreationTime() {
+    public long getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(int creationTime) {
+    public void setCreationTime(long creationTime) {
         this.creationTime = creationTime;
     }
 

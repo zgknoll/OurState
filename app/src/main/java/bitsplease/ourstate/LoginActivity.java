@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -100,6 +101,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
     }
 
     private void populateAutoComplete() {
