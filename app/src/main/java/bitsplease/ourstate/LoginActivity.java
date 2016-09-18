@@ -51,8 +51,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private static final int REQUEST_READ_CONTACTS = 0;
     private DatabaseHelper db;
     private User myUser;
-    public static String username = "";
-
+    public static String username;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -135,10 +134,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         return false;
     }
 
-    public String getUsername(){
-        return username;
-    }
-
     /**
      * Callback received when a permissions request has been completed.
      */
@@ -203,7 +198,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask = new UserLoginTask(email, password,this);
             mAuthTask.execute((Void) null);
         }
-
     }
 
     private boolean isEmailValid(String email) {
@@ -312,8 +306,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
-
-
 
     /**
      * Represents an asynchronous login/registration task used to authenticate

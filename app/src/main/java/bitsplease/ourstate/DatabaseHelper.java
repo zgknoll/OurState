@@ -102,6 +102,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean undoVote(int voteId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+VOTES_TABLE+" where VOTER_ID = "+voteId+";", null);
+        if (res.getCount() == -1) {
+            res.close();
+            return false;
+        } else {
+            res.moveToNext();
+            int petitionId = res.getInt(2);
+            String stringPetitionId = petitionId+"";
+            res.close();
+            res = db.rawQuery("select VOTES from "+VOTES_TABLE+" where ID = "+petitionId+";", null);
+            int votes = res.getInt(0)-1;
+            res.close();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("VOTES", votes);
+            db.update(PETITION_TABLE, contentValues, "ID = ?", new String[]{stringPetitionId});
+            db.execSQL("delete from "+VOTES_TABLE+" where VOTER_ID = "+voteId);
+            return true;
+        }
+    }
+
     public Petition[] getAllPetitions() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+PETITION_TABLE+";", null);
@@ -147,34 +169,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             i++;
         }
         return petitions;
-    }
-
-    public boolean undoVote(int voteId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+VOTES_TABLE+"where VOTER_ID = "+voteId+";", null);
-        if (res.getCount() == 0) {
-            res.close();
-            return false;
-        } else {
-            res.moveToNext();
-            int votes = res.getInt(0) - 1;
-            String stringVotes = "" + votes;
-            //Updates the vote
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("VOTES", votes);
-            res.close();
-            db.update(VOTES_TABLE, contentValues, "VOTE_ID = " + voteId, new String[]{stringVotes});
-            //Adds a new vote to the vote table
-            contentValues = new ContentValues();
-            contentValues.put("ID", voteId);
-            //contentValues.put("VOTER", voter);
-
-            //deleteTitle();
-
-
-            //db.remove(VOTES_TABLE, null, contentValues);
-            return true;
-        }
     }
 
     public boolean deleteTitle(String name)
