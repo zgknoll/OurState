@@ -48,4 +48,13 @@
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/textView2"
         android:layout_toEndOf="@+id/textView2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/button10"
+        android:layout_below="@+id/editText2"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_alignEnd="@+id/editText2" />
 </RelativeLayout>
