@@ -28,12 +28,12 @@
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NewPetitionListActivity" />
-        <activity android:name=".StartPetition" />
         <activity
             android:name=".PetitionDescActivity"
             android:label="@string/title_activity_petition_desc"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NewPetitionListActivity"></activity>
+        <activity android:name=".NewPetitionListActivity" />
+        <activity android:name=".ProfileActivityNew"></activity>
     </application>
 
 </manifest>
